@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL ='https://youtube138.p.rapidapi.com'
+const BASE_URL ='https://youtube-v31.p.rapidapi.com'
 const options = {
     params: {
       hl: 'en',
@@ -7,7 +7,7 @@ const options = {
     },
     headers: {
       'X-RapidAPI-Key': process.env.REACT_APP_YOUTUBE_API_KEY,
-      'X-RapidAPI-Host': 'youtube138.p.rapidapi.com'
+      'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com'
     }
   };
   export const fetchDataFromApi = async(url)=>{
