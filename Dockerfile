@@ -14,8 +14,6 @@ RUN npm install
 COPY . .
 
 # Build the React app
-RUN npm install @mui/material @emotion/react @emotion/styled
-
 RUN npm run build
 
 # Expose port 3000 (or the port your app is configured to listen on)
