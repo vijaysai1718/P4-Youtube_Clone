@@ -6,9 +6,9 @@ terraform {
       }
       
     }
-    backend "s3" {
+      backend "s3" {
     bucket = "vijay-remote-state"
-    key    = "JenkinsYoutube"
+    key    = "MonitoringYoutube"
     region = "us-east-1"
     dynamodb_table = "vijay-remotestate-lock"
   }
