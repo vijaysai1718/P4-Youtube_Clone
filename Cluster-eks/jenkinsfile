@@ -1,0 +1,41 @@
+pipeline{
+    agent any
+    stages {
+        stage('Checkout from Git'){
+            steps{
+                git branch: 'main', url: 'https://github.com/vijaysai1718/P4-Youtube_Clone.git'
+            }
+        }
+        stage('Terraform version'){
+             steps{
+                 sh 'terraform --version'
+             }
+        }
+        stage('Terraform init'){
+             steps{
+                 dir('Cluster-eks') {
+                      sh 'terraform init'
+                   }
+             }
+        }
+        stage('terraform plan') {
+             when {
+                    expression { params.action == 'apply' }
+                }
+            steps{
+                dir('Cluster-eks'){
+                    sh 'terraform plan'
+                } 
+            }
+        }
+        
+ stage('terraform apply / destroy') {
+            steps{
+                dir('Cluster-eks'){
+                    sh 'terraform ${action} --auto-approve'
+                } 
+            }
+ }
+        
+    }
+}
