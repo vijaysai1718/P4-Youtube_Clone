@@ -15,7 +15,7 @@ pipeline{
                when {
                    expression { params.action == 'apply' }
                }
-  dir('Cluster-eks){
+  dir('Cluster-eks'){
               steps {
            dir('Cluster-eks')  {
                   sh "terraform plan"
