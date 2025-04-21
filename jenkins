@@ -1,13 +1,8 @@
 pipeline{
     agent any
     stages(){
-        stage('git checkout'){
-            steps{
-                git branch: 'main' , url: 'https://github.com/vijaysai1718/P4-Youtube_Clone.git'
-            }
-        }
         stage('Init'){
-           dir('Cluster-eks){
+           dir('Cluster-eks'){
             steps{
             dir('Cluster-eks') {
                 sh "terraform init"
