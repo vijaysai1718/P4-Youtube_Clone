@@ -22,7 +22,7 @@ pipeline{
                }
         }
            stage('Apply / Destroy'){
-  dir('Cluster-eks){
+  dir('Cluster-eks'){
               steps {
                 sh "terraform ${action} --auto-approve"
             }
