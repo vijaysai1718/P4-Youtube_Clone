@@ -4,7 +4,6 @@ pipeline{
         stage('Init'){
            dir('Cluster-eks'){
             steps{
-            dir('Cluster-eks') {
                 sh "terraform init"
                 
             }
@@ -16,8 +15,9 @@ pipeline{
                    expression { params.action == 'apply' }
                }
   dir('Cluster-eks'){
+
               steps {
-           dir('Cluster-eks')  {
+            {
                   sh "terraform plan"
             }
                }
@@ -26,7 +26,6 @@ pipeline{
            stage('Apply / Destroy'){
   dir('Cluster-eks){
               steps {
-            dir('Cluster-eks') {
                 sh "terraform ${action} --auto-approve"
             }
                }
