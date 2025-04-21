@@ -1,8 +1,14 @@
+def color_map= [
+    'SUCCESS' : 'good',
+    'FAILURE' : 'danger',
+    'ABORTED' : 'danger'
+    ]
+
 pipeline{
     agent any 
     tools {
         jdk 'java17'
-        nodejs 'nodejs23'
+        nodejs 'node23'
     }
     environment{
         SCANNER_HOME= tool 'sonarscanner'
@@ -10,6 +16,17 @@ pipeline{
         AWS_DEFAULT_REGION= 'us-east-1'
     }
     stages(){
+     stage('notify') {
+            steps {
+                script {
+                     slackSend(
+                channel: '#deployment-prod',
+                message: "${env.JOB_NAME} - ** JOB Started** check url for more info at ${env.BUILD_URL}"
+                )
+                }
+              
+            }
+        }
         stage('clean workspace'){
             steps{
                 cleanWs()
@@ -87,4 +104,14 @@ withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsI
         }
         }
 }
+post{
+           always{
+                slackSend(
+                    channel: '#deployment-prod' ,
+                    color: color_map[currentBuild.currentResult],
+                    message: "${env.JOB_NAME} - Build Number- #${env.BUILD_NUMBER}  got ${currentBuild.currentResult} for more details check out  at ${env.BUILD_URL}" , 
+                    tokenCredentialId: 'slack' 
+                    )
+            }
+        }
 }
