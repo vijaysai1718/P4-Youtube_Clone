@@ -2,28 +2,26 @@ pipeline{
     agent any
     stages(){
         stage('Init'){
-           dir('Cluster-eks'){
             steps{
+            dir('Cluster-eks') {
                 sh "terraform init"
                 
             }
             }
-}
-        
+        }
            stage('Plan'){
                when {
                    expression { params.action == 'apply' }
                }
-  dir('Cluster-eks'){
-
-              steps{
+              steps {
+           dir('Cluster-eks')  {
                   sh "terraform plan"
             }
                }
         }
            stage('Apply / Destroy'){
-  dir('Cluster-eks'){
               steps {
+            dir('Cluster-eks') {
                 sh "terraform ${action} --auto-approve"
             }
                }
