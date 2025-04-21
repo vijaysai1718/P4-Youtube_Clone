@@ -16,13 +16,11 @@ pipeline{
                }
   dir('Cluster-eks'){
 
-              steps {
-            {
+              steps{
                   sh "terraform plan"
             }
                }
         }
-}
            stage('Apply / Destroy'){
   dir('Cluster-eks){
               steps {
@@ -30,6 +28,5 @@ pipeline{
             }
                }
         }
-}
     }
 }
